@@ -1,0 +1,75 @@
+import time
+import json
+import sys
+
+def yolo():
+    num = raw_input('Would you like to search for a number or an address: ')
+    return num
+
+
+def phone_book(num):
+    if num == 'number':
+        x = raw_input ("Who's number would you like? :")
+        if x in log:
+            print log[x]['number']
+        else:
+            print 'not in the phone book'
+            time.sleep(1)
+            print 'please try again'
+            time.sleep(1)
+            phone_book(num)
+
+    elif num == "address":
+        x = raw_input ("Who's address would you like? :")
+        if x in log:
+            print log[x]['address']
+        else:
+            print 'not in the phone book'
+            time.sleep(1)
+            print 'please try again'
+            time.sleep(1)
+            phone_book(num)   
+    else:
+        sys.exit(0)            
+            
+
+x = open('phone_book.json')
+log = json.load(x)
+x.close
+
+amount = input('how much people would you like to add today?: ')
+counter = 0
+while counter < amount:
+    counter = counter + 1
+    user = raw_input('Who would you like to add to the phone number book?: ')
+    log [user] = {}
+    number = raw_input('What is his number?: ')
+    log [user]['number'] = number
+
+    address = raw_input('What is his address?: ')
+    log [user]['address'] = address
+
+print log
+
+decide = raw_input('Would you like to remove someone? [y/n]: ')
+if decide == 'y':
+    person = raw_input('Who would you like to remove:')
+    del log [person]
+    print log
+else:
+    print 'okay'
+
+phone_book(yolo())
+    
+    
+x = open('phone_book.json','w')
+json.dump(log,x)
+x.close
+
+
+
+
+
+
+
+
